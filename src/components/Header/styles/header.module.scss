@@ -1,0 +1,23 @@
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  margin-bottom: 10px;
+  width: 520px;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  width: 229px;
+  height: 40px;
+  background: #d8e054;
+  border-radius: 25px;
+}
