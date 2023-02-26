@@ -1,14 +1,31 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Character } from "../../types";
 import styles from "./styles/game.module.scss";
 import Card from "../../components/Card";
 import AppContext from "../../context/appContext";
+import { shuffleArray } from "../../utils";
+import { useNavigate } from "react-router-dom";
+import { useCardsFetcher } from "../../hooks/useCardsFetcher";
+import SpinnerLoader from "../../components/Spinner";
 
 const Game: React.FC = (): React.ReactElement => {
-  const [points, setPoints] = useState<number>(0);
-  const [turns, setTurns] = useState<number>(0);
   const [selectedCards, setSelectedCards] = useState<Character[]>([]);
-  const { characters, setCharactersState } = useContext(AppContext);
+  const { loading, error, refetch } = useCardsFetcher();
+  const navigate = useNavigate();
+  const {
+    characters,
+    points,
+    turns,
+    setCharactersState,
+    setPointsState,
+    setTurnsState,
+  } = useContext(AppContext);
 
   const onClick = useCallback(
     (card: Character): void => {
@@ -17,36 +34,85 @@ const Game: React.FC = (): React.ReactElement => {
     [selectedCards, setSelectedCards]
   );
 
+  const shuffledCards = useMemo(
+    (): Character[] => shuffleArray(characters),
+    [characters]
+  );
+
   useEffect(() => {
-    if (selectedCards.length === 2) {
-      const [card1, card2] = selectedCards;
-      if (card1.name === card2.image) {
-        const payload = characters.filter(
-          (character) => character.name !== card1.name
-        );
-        setCharactersState(payload);
-      } else {
-        setSelectedCards([]);
-      }
+    if (characters.length === 0 && points !== 6) {
+      refetch();
     }
-  }, [selectedCards]);
+  }, [characters, points, refetch]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (selectedCards.length === 2) {
+        const [firstSelected, secondSelected] = selectedCards;
+        if (firstSelected.name === secondSelected.name) {
+          const payload = characters.filter(
+            (character) => character.name !== firstSelected.name
+          );
+          setPointsState(points + 1);
+          setCharactersState(payload);
+        }
+        setSelectedCards([]);
+        setTurnsState(turns + 1);
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [
+    characters,
+    points,
+    selectedCards,
+    setCharactersState,
+    setPointsState,
+    setTurnsState,
+    turns,
+  ]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (points === 6) {
+        navigate("/scoreboard");
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [characters, navigate, points]);
+
+  if (error) {
+    return <h2>Personajes no encontrados</h2>;
+  }
 
   return (
     <div className={styles.container}>
-      <div className={styles.scoreWrapper}>
-        <h2>Aciertos {points}</h2>
-        <h2>Turnos {turns}</h2>
-      </div>
-      <div className={styles.cardsContainer}>
-        {characters.map((character, index) => (
-          <Card
-            key={`${character.name}-${index}`}
-            data={character}
-            selectedCards={selectedCards.length}
-            onClick={onClick}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <SpinnerLoader />
+      ) : (
+        <>
+          <div className={styles.scoreWrapper}>
+            <h2>Aciertos {points}</h2>
+            <h2>Turnos {turns}</h2>
+          </div>
+          <div className={styles.cardsContainer}>
+            {shuffledCards.map((card, index) => (
+              <Card
+                key={`${card.name}-${index}`}
+                data={card}
+                selectedCards={selectedCards.length}
+                onClick={onClick}
+                onGame
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

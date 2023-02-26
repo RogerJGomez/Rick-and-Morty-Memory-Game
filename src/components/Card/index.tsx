@@ -7,6 +7,7 @@ interface Props {
   data: Character;
   flipped?: boolean;
   selectedCards?: number;
+  onGame?: boolean;
 
   onClick?(card: Character): void;
 }
@@ -15,6 +16,7 @@ const Card: React.FC<Props> = ({
   data,
   flipped = false,
   selectedCards = 0,
+  onGame = false,
   onClick,
 }: Props): React.ReactElement => {
   const [flip, setFlip] = useState<boolean>(flipped);
@@ -29,17 +31,17 @@ const Card: React.FC<Props> = ({
   );
 
   const disableClick = useMemo((): boolean => {
-    if (selectedCards === 2 || (onClick && flip)) {
+    if (selectedCards === 2 || (onClick && flip) || !onClick) {
       return true;
     }
     return false;
   }, [flip, onClick, selectedCards]);
 
-  // useEffect(()=>{
-  //   if(selectedCards === 0){
-  //     setFlip(false)
-  //   }
-  // },[selectedCards])
+  useEffect(() => {
+    if (selectedCards === 0 && onGame) {
+      setFlip(false);
+    }
+  }, [onClick, onGame, selectedCards]);
 
   return (
     <div

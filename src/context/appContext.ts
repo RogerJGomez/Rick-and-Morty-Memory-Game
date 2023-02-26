@@ -2,12 +2,20 @@ import React from "react";
 import { Character } from "../types";
 interface ContextType {
   characters: Character[];
+  points: number;
+  turns: number;
   setCharactersState(payload: Character[]): void;
+  setPointsState(payload: number): void;
+  setTurnsState(payload: number): void;
 }
 
-const appContext = React.createContext<ContextType>({
+const AppContext = React.createContext<ContextType>({
   characters: [],
-  setCharactersState: () => {},
+  points: 0,
+  turns: 0,
+  setCharactersState: (): void => {},
+  setPointsState: (): void => {},
+  setTurnsState: (): void => {},
 });
 
-export default appContext;
+export default AppContext;

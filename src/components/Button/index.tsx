@@ -9,14 +9,21 @@ export enum ButtonType {
 interface Props {
   type: ButtonType;
   text: string;
+
+  onClick?(): void;
 }
 
-const Button: React.FC<Props> = ({ type, text }: Props): React.ReactElement => {
+const Button: React.FC<Props> = ({
+  type,
+  text,
+  onClick,
+}: Props): React.ReactElement => {
   return (
     <button
       className={`${styles.button} ${
         type === ButtonType.primary ? styles.primary : styles.secondary
       }`}
+      onClick={onClick}
     >
       {text}
     </button>
