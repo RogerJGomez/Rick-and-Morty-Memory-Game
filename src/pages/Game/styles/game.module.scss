@@ -3,3 +3,11 @@
   flex-wrap: wrap;
   width: 100%;
 }
+
+.scoreWrapper {
+  width: 100%;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: flex;
+  justify-content: space-between;
+}

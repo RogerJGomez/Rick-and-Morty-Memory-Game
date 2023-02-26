@@ -11,7 +11,7 @@ const Card: React.FC<Props> = ({ data }: Props): React.ReactElement => {
   return (
     <div className={styles.card}>
       <img src={image} alt="card" className={styles.img} />
-      <h3>{name}</h3>
+      <h4>{name}</h4>
       <div className={styles.subtitle}>
         <p>{`${status} - ${species}`}</p>
       </div>

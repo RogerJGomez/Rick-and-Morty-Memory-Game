@@ -17,6 +17,10 @@
   margin-top: 40px;
   width: 80%;
   background: #fffac2;
+  height: 100%;
   padding: 36px 72px;
   border-radius: 16px 16px 0px 0px;
+  @media screen and (max-width: 600px) {
+    width: 98%;
+  }
 }

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const GET_CHARACTERTS = gql`
-  query GetCharacters($page: Int!) {
+export const GET_CHARACTERS = gql(/* GraphQL */ `
+  query GetCharacters($page: Int) {
     characters(page: $page) {
       results {
         name
@@ -11,4 +11,4 @@ export const GET_CHARACTERTS = gql`
       }
     }
   }
-`;
+`);
