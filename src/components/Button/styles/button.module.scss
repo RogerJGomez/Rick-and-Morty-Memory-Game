@@ -1,0 +1,40 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 80px;
+  cursor: pointer;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  gap: 8px;
+  width: 240px;
+  height: 53px;
+  border-width: 0px 0px 4px 4px;
+  border-style: solid;
+  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.primary {
+  background: #a2f2f9;
+  border-color: #d8e054;
+  &:hover {
+    background: #1a7a83;
+    border-color: #e6ec59;
+    transition: 0.4s;
+    color: #fff;
+  }
+}
+.secondary {
+  background: #d8e054;
+  border-color: #a2f2f9;
+  &:hover {
+    background: #a2f2f9;
+    border-color: #73781c;
+    transition: 0.4s;
+    color: #fff;
+  }
+}

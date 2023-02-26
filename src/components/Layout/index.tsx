@@ -10,7 +10,7 @@ const Layout: React.FC<Props> = ({ children }: Props): React.ReactElement => {
   return (
     <div className={styles.layout}>
       <Header />
-      <div>{children}</div>
+      <div className={styles.container}>{children}</div>
     </div>
   );
 };

@@ -1,9 +1,22 @@
 .layout {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding-top: 10px;
-  padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
   background-color: #1c1d3b;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  width: 80%;
+  background: #fffac2;
+  padding: 36px 72px;
+  border-radius: 16px 16px 0px 0px;
 }
