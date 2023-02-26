@@ -7,30 +7,27 @@ import AppContext from "../../context/appContext";
 import { useLocation } from "react-router-dom";
 
 export const useCardsFetcher = () => {
-  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
   const { characters, points, setCharactersState } = useContext(AppContext);
   const location = useLocation();
   const skipFetching = useMemo((): boolean => {
-    if (
+    return (
       (location.pathname.includes("/game") && points === 6) ||
       (location.pathname.includes("/game") &&
         points !== 6 &&
         characters.length !== 0)
-    ) {
-      return true;
-    }
-    return false;
+    );
   }, [characters.length, location.pathname, points]);
 
   const { loading, error, data, refetch } = useQuery(GET_CHARACTERS, {
     variables: {
-      page: pageNumber,
+      page,
     },
     skip: skipFetching,
   });
 
   useEffect(() => {
-    setPageNumber(getRandomNumber(0, 42));
+    setPage(getRandomNumber(0, 42));
   }, []);
 
   useEffect(() => {

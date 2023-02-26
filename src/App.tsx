@@ -27,12 +27,12 @@ function App() {
     <Layout>
       <AppContext.Provider
         value={{
-          characters: characters,
-          points: points,
-          turns: turns,
-          setPointsState: setPointsState,
-          setCharactersState: setCharactersState,
-          setTurnsState: setTurnsState,
+          characters,
+          points,
+          turns,
+          setPointsState,
+          setCharactersState,
+          setTurnsState,
         }}
       >
         <Routes>
