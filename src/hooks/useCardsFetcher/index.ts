@@ -11,12 +11,16 @@ export const useCardsFetcher = () => {
   const { characters, points, setCharactersState } = useContext(AppContext);
   const location = useLocation();
   const skipFetching = useMemo((): boolean => {
-    return (
+    if (
       (location.pathname.includes("/game") && points === 6) ||
       (location.pathname.includes("/game") &&
         points !== 6 &&
         characters.length !== 0)
-    );
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }, [characters.length, location.pathname, points]);
 
   const { loading, error, data, refetch } = useQuery(GET_CHARACTERS, {
