@@ -5,20 +5,19 @@ import BackLogo from "../../assets/img/card.png";
 
 interface Props {
   data: Character;
-  flipped?: boolean;
   selectedCards?: number;
-  onGame?: boolean;
-  turns?: number;
+  flipped: boolean;
+  wrongChoice?: boolean;
 
   onClick?(card: Character): void;
 }
 
 const Card: React.FC<Props> = ({
   data,
-  flipped = false,
   selectedCards = 0,
-  onGame = false,
-  turns = 0,
+  flipped,
+  wrongChoice = false,
+
   onClick,
 }: Props): React.ReactElement => {
   const [flip, setFlip] = useState<boolean>(flipped);
@@ -40,26 +39,20 @@ const Card: React.FC<Props> = ({
   }, [flip, onClick, selectedCards]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (onGame && turns === 0) {
-        setFlip(false);
-      }
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [onGame, turns]);
+    setFlip(flipped);
+  }, [flipped]);
 
   useEffect(() => {
-    if (selectedCards === 0 && onGame && turns > 0) {
+    if (wrongChoice && selectedCards === 0) {
       setFlip(false);
     }
-  }, [onClick, onGame, selectedCards, turns]);
+  }, [selectedCards, wrongChoice]);
 
   return (
     <div
-      className={`${styles.card} ${!flip && styles.flipCard}`}
+      className={`${styles.card} ${!flip && styles.flipCard} ${
+        !disableClick && styles.pointer
+      }`}
       onClick={() => !disableClick && toggleFlip(data)}
     >
       <div className={styles.inner}>

@@ -16,6 +16,9 @@ import SpinnerLoader from "../../components/Spinner";
 
 const Game: React.FC = (): React.ReactElement => {
   const [selectedCards, setSelectedCards] = useState<Character[]>([]);
+  const [wrongChoice, setWrongChoice] = useState<boolean>(false);
+  const [showFrontCards, setShowFrontCards] = useState<boolean>(true);
+
   const { loading, error, refetch } = useCardsFetcher();
 
   const navigate = useNavigate();
@@ -48,6 +51,18 @@ const Game: React.FC = (): React.ReactElement => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
+      if (turns === 0) {
+        setShowFrontCards(false);
+      }
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [turns]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
       if (selectedCards.length === 2) {
         const [firstSelected, secondSelected] = selectedCards;
         if (firstSelected.name === secondSelected.name) {
@@ -56,9 +71,12 @@ const Game: React.FC = (): React.ReactElement => {
           );
           setPointsState(points + 1);
           setCharactersState(payload);
+          setWrongChoice(false);
+        } else {
+          setWrongChoice(true);
         }
-        setSelectedCards([]);
         setTurnsState(turns + 1);
+        setSelectedCards([]);
       }
     }, 1000);
 
@@ -108,9 +126,8 @@ const Game: React.FC = (): React.ReactElement => {
                 data={card}
                 selectedCards={selectedCards.length}
                 onClick={onClick}
-                flipped
-                turns={turns}
-                onGame
+                wrongChoice={wrongChoice}
+                flipped={showFrontCards}
               />
             ))}
           </div>

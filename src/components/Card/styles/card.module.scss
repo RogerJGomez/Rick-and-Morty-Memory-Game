@@ -4,7 +4,6 @@
   width: 25%;
   min-height: 320px;
   border-radius: 8px;
-  cursor: pointer;
 
   .inner {
     position: relative;
@@ -42,6 +41,7 @@
       }
     }
   }
+
   .front,
   .back {
     border-radius: 8px;
@@ -87,4 +87,8 @@
   .inner {
     transform: rotateY(180deg);
   }
+}
+
+.pointer {
+  cursor: pointer;
 }
