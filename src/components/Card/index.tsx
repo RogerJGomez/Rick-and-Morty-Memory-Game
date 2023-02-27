@@ -8,6 +8,7 @@ interface Props {
   flipped?: boolean;
   selectedCards?: number;
   onGame?: boolean;
+  turns?: number;
 
   onClick?(card: Character): void;
 }
@@ -17,6 +18,7 @@ const Card: React.FC<Props> = ({
   flipped = false,
   selectedCards = 0,
   onGame = false,
+  turns = 0,
   onClick,
 }: Props): React.ReactElement => {
   const [flip, setFlip] = useState<boolean>(flipped);
@@ -38,10 +40,22 @@ const Card: React.FC<Props> = ({
   }, [flip, onClick, selectedCards]);
 
   useEffect(() => {
-    if (selectedCards === 0 && onGame) {
+    const timeout = setTimeout(() => {
+      if (onGame && turns === 0) {
+        setFlip(false);
+      }
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [onGame, turns]);
+
+  useEffect(() => {
+    if (selectedCards === 0 && onGame && turns > 0) {
       setFlip(false);
     }
-  }, [onClick, onGame, selectedCards]);
+  }, [onClick, onGame, selectedCards, turns]);
 
   return (
     <div

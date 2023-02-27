@@ -17,6 +17,7 @@ import SpinnerLoader from "../../components/Spinner";
 const Game: React.FC = (): React.ReactElement => {
   const [selectedCards, setSelectedCards] = useState<Character[]>([]);
   const { loading, error, refetch } = useCardsFetcher();
+
   const navigate = useNavigate();
   const {
     characters,
@@ -107,6 +108,8 @@ const Game: React.FC = (): React.ReactElement => {
                 data={card}
                 selectedCards={selectedCards.length}
                 onClick={onClick}
+                flipped
+                turns={turns}
                 onGame
               />
             ))}
