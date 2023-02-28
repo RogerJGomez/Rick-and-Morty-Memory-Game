@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 
 describe("Spinner", () => {
   it("Should render the spinner", async () => {
-    const view = await render(<Spinner />);
+    const view = render(<Spinner />);
 
     const spinner = await view.findByTestId("spinner");
     expect(spinner).toBeInTheDocument();

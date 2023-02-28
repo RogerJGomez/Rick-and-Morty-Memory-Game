@@ -25,6 +25,6 @@ describe("Card", () => {
     );
 
     const card = view.getByAltText("card-back");
-    await expect(card).toHaveAttribute("src", BackgroundImage);
+    expect(card).toHaveAttribute("src", BackgroundImage);
   });
 });
