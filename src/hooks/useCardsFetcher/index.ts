@@ -31,7 +31,7 @@ export const useCardsFetcher = () => {
   });
 
   useEffect(() => {
-    setPage(getRandomNumber(0, 42));
+    setPage(getRandomNumber(1, 42));
   }, []);
 
   useEffect(() => {

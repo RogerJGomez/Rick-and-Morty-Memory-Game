@@ -8,9 +8,11 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }: Props): React.ReactElement => {
   return (
-    <div className={styles.layout}>
+    <div data-testid="layout" className={styles.layout}>
       <Header />
-      <div className={styles.container}>{children}</div>
+      <div data-testid="child" className={styles.container}>
+        {children}
+      </div>
     </div>
   );
 };

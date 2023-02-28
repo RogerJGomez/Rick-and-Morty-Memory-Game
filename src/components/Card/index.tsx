@@ -50,6 +50,7 @@ const Card: React.FC<Props> = ({
 
   return (
     <div
+      data-testid="card"
       className={`${styles.card} ${!flip && styles.flipCard} ${
         !disableClick && styles.pointer
       }`}

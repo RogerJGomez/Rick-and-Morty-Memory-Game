@@ -20,6 +20,7 @@ const Button: React.FC<Props> = ({
 }: Props): React.ReactElement => {
   return (
     <button
+      data-testid="button"
       className={`${styles.button} ${
         type === ButtonType.primary ? styles.primary : styles.secondary
       }`}
