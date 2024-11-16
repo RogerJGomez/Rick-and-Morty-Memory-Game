@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import SpinnerLoader from "../../components/Spinner";
 import styles from "./styles/home.module.scss";
 import Card from "../../components/Card";
@@ -9,13 +9,7 @@ import { useCardsFetcher } from "../../hooks/useCardsFetcher";
 
 const Home: React.FC = (): React.ReactElement => {
   const { characters } = useContext(AppContext);
-  const { loading, error, refetch } = useCardsFetcher();
-
-  useEffect(() => {
-    if (characters.length !== 0) {
-      refetch();
-    }
-  }, [characters, refetch]);
+  const { loading, error } = useCardsFetcher();
 
   if (error) {
     return <h2>Personajes no encontrados</h2>;

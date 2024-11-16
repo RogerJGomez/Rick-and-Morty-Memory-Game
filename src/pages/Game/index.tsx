@@ -19,7 +19,7 @@ const Game: React.FC = (): React.ReactElement => {
   const [wrongChoice, setWrongChoice] = useState<boolean>(false);
   const [showFrontCards, setShowFrontCards] = useState<boolean>(true);
 
-  const { loading, error, refetch } = useCardsFetcher();
+  const { loading, error } = useCardsFetcher();
 
   const navigate = useNavigate();
   const {
@@ -29,6 +29,7 @@ const Game: React.FC = (): React.ReactElement => {
     setCharactersState,
     setPointsState,
     setTurnsState,
+    setStartGameState,
   } = useContext(AppContext);
 
   const onClick = useCallback(
@@ -39,10 +40,8 @@ const Game: React.FC = (): React.ReactElement => {
   );
 
   useEffect(() => {
-    if (characters.length === 0) {
-      refetch();
-    }
-  }, [characters, refetch]);
+    setStartGameState(true);
+  }, [setStartGameState]);
 
   const shuffledCards = useMemo(
     () => (turns === 0 ? shuffleArray(characters) : characters),

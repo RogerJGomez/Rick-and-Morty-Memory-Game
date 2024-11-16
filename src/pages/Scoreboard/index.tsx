@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import AppContext from "../../context/appContext";
 
 const Scoreboard: React.FC = (): React.ReactElement => {
-  const { turns, setPointsState, setTurnsState } = useContext(AppContext);
+  const { turns, setStartGameState, setPointsState, setTurnsState } =
+    useContext(AppContext);
+
   const navigate = useNavigate();
 
   const redirect = useCallback(
@@ -17,6 +19,17 @@ const Scoreboard: React.FC = (): React.ReactElement => {
     [navigate, setPointsState, setTurnsState]
   );
 
+  const redirection = useCallback(
+    (path: string) => {
+      setTimeout(() => {
+        setStartGameState(false);
+      }, 500);
+
+      redirect(path);
+    },
+    [redirect, setStartGameState]
+  );
+
   return (
     <div className={styles.container}>
       <h1>¡Felicitaciones!</h1>
@@ -25,12 +38,12 @@ const Scoreboard: React.FC = (): React.ReactElement => {
         <Button
           text="Repetir"
           type={ButtonType.primary}
-          onClick={() => redirect("/game")}
+          onClick={() => redirection("/game")}
         />
         <Button
           text="Inicio"
           type={ButtonType.secondary}
-          onClick={() => redirect("/")}
+          onClick={() => redirection("/")}
         />
       </div>
     </div>

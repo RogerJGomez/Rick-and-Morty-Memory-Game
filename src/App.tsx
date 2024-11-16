@@ -11,6 +11,7 @@ function App() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [points, setPoints] = useState<number>(0);
   const [turns, setTurns] = useState<number>(0);
+  const [startGame, setStartGame] = useState<boolean>(false);
 
   const setCharactersState = useCallback((payload: Character[]) => {
     setCharacters([...payload]);
@@ -23,16 +24,23 @@ function App() {
   const setTurnsState = useCallback((payload: number) => {
     setTurns(payload);
   }, []);
+
+  const setStartGameState = useCallback((payload: boolean) => {
+    setStartGame(payload);
+  }, []);
+
   return (
     <Layout>
       <AppContext.Provider
         value={{
+          startGame,
           characters,
           points,
           turns,
           setPointsState,
           setCharactersState,
           setTurnsState,
+          setStartGameState,
         }}
       >
         <Routes>

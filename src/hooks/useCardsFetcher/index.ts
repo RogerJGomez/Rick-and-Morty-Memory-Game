@@ -7,17 +7,17 @@ import AppContext from "../../context/appContext";
 
 export const useCardsFetcher = () => {
   const [page, setPage] = useState<number>(1);
-  const { setCharactersState } = useContext(AppContext);
-
-  const { loading, error, data, refetch } = useQuery(GET_CHARACTERS, {
+  const { characters, startGame, setCharactersState } = useContext(AppContext);
+  const { loading, error, data } = useQuery(GET_CHARACTERS, {
     variables: {
       page,
     },
+    skip: startGame,
   });
 
   useEffect(() => {
-    setPage(getRandomNumber(1, 42));
-  }, []);
+    if (characters.length === 0 && !startGame) setPage(getRandomNumber(1, 42));
+  }, [characters, setPage, startGame]);
 
   useEffect(() => {
     if (!data) {
@@ -33,6 +33,5 @@ export const useCardsFetcher = () => {
   return {
     loading,
     error,
-    refetch,
   };
 };
