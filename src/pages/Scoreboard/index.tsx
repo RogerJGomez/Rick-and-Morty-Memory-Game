@@ -12,22 +12,14 @@ const Scoreboard: React.FC = (): React.ReactElement => {
 
   const redirect = useCallback(
     (to: string) => {
-      setPointsState(0);
-      setTurnsState(0);
-      navigate(to);
-    },
-    [navigate, setPointsState, setTurnsState]
-  );
-
-  const redirection = useCallback(
-    (path: string) => {
       setTimeout(() => {
+        setPointsState(0);
+        setTurnsState(0);
         setStartGameState(false);
       }, 500);
-
-      redirect(path);
+      navigate(to);
     },
-    [redirect, setStartGameState]
+    [navigate, setPointsState, setStartGameState, setTurnsState]
   );
 
   return (
@@ -38,12 +30,12 @@ const Scoreboard: React.FC = (): React.ReactElement => {
         <Button
           text="Repetir"
           type={ButtonType.primary}
-          onClick={() => redirection("/game")}
+          onClick={() => redirect("/game")}
         />
         <Button
           text="Inicio"
           type={ButtonType.secondary}
-          onClick={() => redirection("/")}
+          onClick={() => redirect("/")}
         />
       </div>
     </div>
