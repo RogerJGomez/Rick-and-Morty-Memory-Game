@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Character } from "../../types";
 import styles from "./styles/game.module.scss";
 import Card from "../../components/Card";
@@ -38,10 +32,10 @@ const Game: React.FC = (): React.ReactElement => {
     [selectedCards, setSelectedCards]
   );
 
-  const shuffledCards = useMemo(
-    (): Character[] => shuffleArray(characters),
-    [characters]
-  );
+  useEffect(() => {
+    setCharactersState(shuffleArray(characters));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (characters.length === 0 && points !== 6) {
@@ -120,7 +114,7 @@ const Game: React.FC = (): React.ReactElement => {
             <h2>Turnos {turns}</h2>
           </div>
           <div className={styles.cardsContainer}>
-            {shuffledCards.map((card, index) => (
+            {characters.map((card, index) => (
               <Card
                 key={`${card.name}-${index}`}
                 data={card}
