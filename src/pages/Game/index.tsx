@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Character } from "../../types";
 import styles from "./styles/game.module.scss";
 import Card from "../../components/Card";
@@ -33,15 +39,15 @@ const Game: React.FC = (): React.ReactElement => {
   );
 
   useEffect(() => {
-    setCharactersState(shuffleArray(characters));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (characters.length === 0 && points !== 6) {
+    if (characters.length === 0) {
       refetch();
     }
-  }, [characters, points, refetch]);
+  }, [characters, refetch]);
+
+  const shuffledCards = useMemo(
+    () => (turns === 0 ? shuffleArray(characters) : characters),
+    [turns, characters]
+  );
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -59,9 +65,9 @@ const Game: React.FC = (): React.ReactElement => {
     const timeout = setTimeout(() => {
       if (selectedCards.length === 2) {
         const [firstSelected, secondSelected] = selectedCards;
-        if (firstSelected.name === secondSelected.name) {
+        if (firstSelected.image === secondSelected.image) {
           const payload = characters.filter(
-            (character) => character.name !== firstSelected.name
+            (character) => character.image !== firstSelected.image
           );
           setPointsState(points + 1);
           setCharactersState(payload);
@@ -114,7 +120,7 @@ const Game: React.FC = (): React.ReactElement => {
             <h2>Turnos {turns}</h2>
           </div>
           <div className={styles.cardsContainer}>
-            {characters.map((card, index) => (
+            {shuffledCards.map((card, index) => (
               <Card
                 key={`${card.name}-${index}`}
                 data={card}

@@ -1,33 +1,18 @@
 import { useQuery } from "@apollo/client";
 import { GET_CHARACTERS } from "../../queries";
 import { getRandomNumber, sortByName } from "../../utils";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Character } from "../../types";
 import AppContext from "../../context/appContext";
-import { useLocation } from "react-router-dom";
 
 export const useCardsFetcher = () => {
   const [page, setPage] = useState<number>(1);
-  const { characters, points, setCharactersState } = useContext(AppContext);
-  const location = useLocation();
-  const skipFetching = useMemo((): boolean => {
-    if (
-      (location.pathname.includes("/game") && points === 6) ||
-      (location.pathname.includes("/game") &&
-        points !== 6 &&
-        characters.length !== 0)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }, [characters.length, location.pathname, points]);
+  const { setCharactersState } = useContext(AppContext);
 
   const { loading, error, data, refetch } = useQuery(GET_CHARACTERS, {
     variables: {
       page,
     },
-    skip: skipFetching,
   });
 
   useEffect(() => {
