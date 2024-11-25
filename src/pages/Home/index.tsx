@@ -20,7 +20,7 @@ const Home: React.FC = (): React.ReactElement => {
         <SpinnerLoader />
       ) : (
         <>
-          <h2>Personajes</h2>
+          <h2>Characters</h2>
           <div className={styles.charactersCointainer}>
             {characters.map((character, index) => (
               <Card
