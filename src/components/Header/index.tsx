@@ -6,7 +6,7 @@ const Header: React.FC = (): React.ReactElement => {
   return (
     <header data-testid="header" className={styles.header}>
       <img src={Logo} alt="logo" className={styles.logo} />
-      <h4 className={styles.subtitle}>Juego de memoria</h4>
+      <h4 className={styles.subtitle}>Memory Game</h4>
     </header>
   );
 };

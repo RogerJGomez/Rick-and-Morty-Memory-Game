@@ -24,16 +24,16 @@ const Scoreboard: React.FC = (): React.ReactElement => {
 
   return (
     <div className={styles.container}>
-      <h1>¡Felicitaciones!</h1>
-      <h4>Terminaste el juego con {turns} turnos</h4>
+      <h1>Congratulations!</h1>
+      <h4>You finished the game in {turns} turns</h4>
       <div className={styles.buttonsWrapper}>
         <Button
-          text="Repetir"
+          text="Play again"
           type={ButtonType.primary}
           onClick={() => redirect("/game")}
         />
         <Button
-          text="Inicio"
+          text="Home"
           type={ButtonType.secondary}
           onClick={() => redirect("/")}
         />

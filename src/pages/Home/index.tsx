@@ -12,7 +12,7 @@ const Home: React.FC = (): React.ReactElement => {
   const { loading, error } = useCardsFetcher();
 
   if (error) {
-    return <h2>Personajes no encontrados</h2>;
+    return <h2>Characters not found</h2>;
   }
   return (
     <div className={styles.charactersCointainer}>
@@ -32,7 +32,7 @@ const Home: React.FC = (): React.ReactElement => {
           </div>
           <div className={styles.buttonWrapper}>
             <Link to="/game">
-              <Button text="Jugar" type={ButtonType.primary} />
+              <Button text="Play" type={ButtonType.primary} />
             </Link>
           </div>
         </>

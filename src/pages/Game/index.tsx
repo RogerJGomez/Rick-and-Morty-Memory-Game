@@ -105,7 +105,7 @@ const Game: React.FC = (): React.ReactElement => {
   }, [characters, navigate, points]);
 
   if (error) {
-    return <h2>Personajes no encontrados</h2>;
+    return <h2>Characters not found</h2>;
   }
 
   return (
@@ -115,8 +115,8 @@ const Game: React.FC = (): React.ReactElement => {
       ) : (
         <>
           <div className={styles.scoreWrapper}>
-            <h2>Aciertos {points}</h2>
-            <h2>Turnos {turns}</h2>
+            <h2>Points {points}</h2>
+            <h2>Turns {turns}</h2>
           </div>
           <div className={styles.cardsContainer}>
             {shuffledCards.map((card, index) => (
