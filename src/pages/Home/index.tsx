@@ -12,7 +12,7 @@ const Home: React.FC = (): React.ReactElement => {
   const { loading, error } = useCardsFetcher();
 
   if (error) {
-    return <h2>Characters not found</h2>;
+    return <h2>Characters not found!</h2>;
   }
   return (
     <div className={styles.charactersCointainer}>
