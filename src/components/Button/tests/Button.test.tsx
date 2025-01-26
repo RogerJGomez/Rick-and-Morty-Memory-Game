@@ -5,17 +5,17 @@ import { render } from "@testing-library/react";
 describe("Button", () => {
   it("Should render the button with the correct text", async () => {
     const view = await render(
-      <Button text="Jugar de nuevo" type={ButtonType.primary} />
+      <Button text="Play again" type={ButtonType.primary} />
     );
 
     const button = await view.findByTestId("button");
     expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent("Jugar de nuevo");
+    expect(button).toHaveTextContent("Play again");
   });
 
   it("Should have the secondary color", async () => {
     const view = await render(
-      <Button text="Jugar" type={ButtonType.secondary} />
+      <Button text="Play" type={ButtonType.secondary} />
     );
 
     const button = await view.findByTestId("button");
